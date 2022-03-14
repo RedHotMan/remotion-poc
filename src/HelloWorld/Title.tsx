@@ -1,9 +1,9 @@
-import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import { spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 export const Title: React.FC<{
 	titleText: string;
 	titleColor: string;
-}> = ({titleText, titleColor}) => {
+}> = ({ titleText, titleColor }) => {
 	const videoConfig = useVideoConfig();
 	const frame = useCurrentFrame();
 	const text = titleText.split(' ').map((t) => ` ${t} `);
@@ -15,7 +15,6 @@ export const Title: React.FC<{
 				fontSize: 100,
 				textAlign: 'center',
 				position: 'absolute',
-				bottom: 160,
 				width: '100%',
 			}}
 		>
