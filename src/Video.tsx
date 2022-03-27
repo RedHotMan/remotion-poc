@@ -1,13 +1,13 @@
 import { Composition } from 'remotion';
-import { WelcomeVideoLayout } from './WelcomeVideoLayout';
+import { Layout } from './Layout';
 
 export const RemotionVideo: React.FC = () => {
     return (
         <>
             <Composition
-                id="WelcomeVideoLayout"
-                component={WelcomeVideoLayout}
-                durationInFrames={150}
+                id="WelcomeVideo"
+                component={Layout}
+                durationInFrames={600}
                 fps={30}
                 width={800}
                 height={400}
