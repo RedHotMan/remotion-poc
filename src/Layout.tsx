@@ -2,6 +2,9 @@ import { Series } from 'remotion';
 import { Hello } from './Sequences/Hello';
 import { Welcome } from './Sequences/Welcome';
 import { ChooseTeam } from './Sequences/ChooseTeam';
+import { PlanetDescription } from './Sequences/PlanetDescription';
+
+import planets from './utils/planets';
 
 export const Layout: React.FC = () => {
     return (
@@ -21,9 +24,14 @@ export const Layout: React.FC = () => {
                 <Series.Sequence durationInFrames={45}>
                     <Welcome />
                 </Series.Sequence>
-                <Series.Sequence durationInFrames={240}>
-                    <ChooseTeam />
+                <Series.Sequence durationInFrames={120}>
+                    <ChooseTeam planetsInfo={planets} />
                 </Series.Sequence>
+                {planets.map((planet) => (
+                    <Series.Sequence durationInFrames={50}>
+                        <PlanetDescription planetInfo={planet} />
+                    </Series.Sequence>
+                ))}
             </Series>
         </div>
     );

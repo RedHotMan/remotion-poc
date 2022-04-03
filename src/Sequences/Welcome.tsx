@@ -1,5 +1,5 @@
 import { useCurrentFrame, useVideoConfig, Img, AbsoluteFill } from 'remotion';
-import { fadeInAndOut } from '../utils';
+import { fadeInAndOut } from '../utils/animations';
 import logo from '../assets/elevenLogo.jpeg';
 
 export const Welcome: React.FC = () => {

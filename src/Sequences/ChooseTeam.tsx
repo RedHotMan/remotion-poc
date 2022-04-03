@@ -3,33 +3,35 @@ import {
     Img,
     Easing,
     interpolate,
-    spring,
     useCurrentFrame,
     useVideoConfig,
 } from 'remotion';
-import Canard from '../assets/Canard.png';
-import Chat from '../assets/Chat.png';
-import Panda from '../assets/Panda.png';
-import Raccoon from '../assets/Raccoon.png';
-import { fadeIn } from '../utils';
-import { playAndHandleNotAllowedError } from 'remotion/dist/play-and-handle-not-allowed-error';
+import { PlanetInfo } from './PlanetDescription';
+import { fadeInAndOut } from '../utils/animations';
 
-export const ChooseTeam: React.FC = () => {
+export const ChooseTeam: React.FC<{ planetsInfo: PlanetInfo[] }> = ({
+    planetsInfo,
+}) => {
     const frame = useCurrentFrame();
-    const { fps, width } = useVideoConfig();
+    const { width, durationInFrames } = useVideoConfig();
 
-    const animationValue = spring({
-        frame: frame - 7,
-        fps,
-        config: {
-            damping: 70,
-        },
-    });
-    const titlePositionTop = interpolate(animationValue, [0, 1], [0, 80], {
-        extrapolateRight: 'clamp',
-        extrapolateLeft: 'clamp',
-    });
-    const titleOpacity = fadeIn(frame - 15, 0, 15);
+    const titlePositionTop = interpolate(
+        frame - 7,
+        [0, 20, durationInFrames - 20, durationInFrames],
+        [0, 80, 80, 0],
+        {
+            extrapolateRight: 'clamp',
+            extrapolateLeft: 'clamp',
+            easing: Easing.bezier(0, -0.06, 0.3, 0.96),
+        }
+    );
+    const titleOpacity = fadeInAndOut(
+        frame - 7,
+        0,
+        20,
+        durationInFrames - 27,
+        durationInFrames - 7
+    );
 
     const backgroundColorScale = interpolate(frame - 5, [0, 15], [0, 50], {
         extrapolateRight: 'clamp',
@@ -52,6 +54,27 @@ export const ChooseTeam: React.FC = () => {
             }
         );
     };
+
+    const planetBlockFadeOut = interpolate(
+        frame,
+        [durationInFrames - 20, durationInFrames],
+        [1, 0],
+        {
+            extrapolateRight: 'clamp',
+            extrapolateLeft: 'clamp',
+        }
+    );
+
+    const planetBlockTranslationY = interpolate(
+        frame,
+        [durationInFrames - 20, durationInFrames],
+        [0, 200],
+        {
+            extrapolateRight: 'clamp',
+            extrapolateLeft: 'clamp',
+            easing: Easing.ease,
+        }
+    );
 
     return (
         <AbsoluteFill
@@ -82,11 +105,14 @@ export const ChooseTeam: React.FC = () => {
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',
+                    opacity: planetBlockFadeOut,
+                    transform: `translateY(${planetBlockTranslationY}px)`,
                 }}
             >
-                {[Raccoon, Chat, Panda, Canard].map((planet, i) => {
+                {planetsInfo.map((planet, i) => {
                     return (
                         <div
+                            key={`planet${i}`}
                             style={{
                                 position: 'absolute',
                                 width: width / 4,
@@ -98,7 +124,7 @@ export const ChooseTeam: React.FC = () => {
                         >
                             <Img
                                 style={{ height: 150, width: 'auto' }}
-                                src={planet}
+                                src={planet.logo}
                             />
                         </div>
                     );

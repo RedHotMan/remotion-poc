@@ -6,7 +6,7 @@ import {
 } from 'remotion';
 import { Title } from '../Components/Title';
 
-import { fadeInAndOut } from '../utils';
+import { fadeInAndOut } from '../utils/animations';
 
 export const Hello: React.FC = () => {
     const frame = useCurrentFrame();
