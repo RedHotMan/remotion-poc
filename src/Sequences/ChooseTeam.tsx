@@ -7,7 +7,7 @@ import {
     useVideoConfig,
 } from 'remotion';
 import { PlanetInfo } from './PlanetDescription';
-import { fadeInAndOut } from '../utils/animations';
+import { fadeIn, fadeInAndOut } from '../utils/animations';
 
 export const ChooseTeam: React.FC<{ planetsInfo: PlanetInfo[] }> = ({
     planetsInfo,
@@ -39,20 +39,13 @@ export const ChooseTeam: React.FC<{ planetsInfo: PlanetInfo[] }> = ({
         easing: Easing.ease,
     });
 
-    const planetTranslationX = (planetIndex: number) => {
-        const finalLeft =
-            planetIndex === 0 ? 0 : width - 200 * (4 - planetIndex);
-
-        return interpolate(
-            frame - 15,
-            [(planetIndex + 1) * 10, (planetIndex + 1) * 10 + 2 * 10],
-            [width, finalLeft],
-            {
-                extrapolateLeft: 'clamp',
-                extrapolateRight: 'clamp',
-                easing: Easing.ease,
-            }
-        );
+    const fadeInByPlanetIndex = (planetIndex: number): number => {
+        // The planet logo fadeIn start at this frame
+        const fadeInStart = (planetIndex + 1) * 15;
+        // 30 is the animation duration.
+        // the frame you start the animation + duration of animation (30)
+        // equals last frame
+        return fadeIn(frame, fadeInStart, fadeInStart + 30);
     };
 
     const planetBlockFadeOut = interpolate(
@@ -116,10 +109,9 @@ export const ChooseTeam: React.FC<{ planetsInfo: PlanetInfo[] }> = ({
                             style={{
                                 position: 'absolute',
                                 width: width / 4,
+                                left: width - 200 * (4 - i),
                                 height: 40,
-                                transform: `translateX(${planetTranslationX(
-                                    i
-                                )}px)`,
+                                opacity: fadeInByPlanetIndex(i),
                             }}
                         >
                             <Img
