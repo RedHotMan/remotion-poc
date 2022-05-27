@@ -15,6 +15,7 @@
     "@remotion/bundler": "^2.6.12",
     "@remotion/cli": "^2.6.12",
     "@remotion/eslint-config": "^2.6.12",
+    "@remotion/gif": "^3.0.10",
     "@remotion/renderer": "^2.6.12",
     "eslint": "^7.15.0",
     "express": "^4.17.1",
