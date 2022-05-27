@@ -92,7 +92,7 @@ export const ChooseTeam: React.FC<{ planetsInfo: PlanetInfo[] }> = ({
             <AbsoluteFill
                 style={{ opacity: titleOpacity, top: titlePositionTop }}
             >
-                <h2>Which team will you be in ?</h2>
+                <h2>Which planet are you going to join ?</h2>
             </AbsoluteFill>
             <AbsoluteFill
                 style={{

@@ -5,6 +5,7 @@ import { ChooseTeam } from './Sequences/ChooseTeam';
 import { PlanetDescription } from './Sequences/PlanetDescription';
 
 import planets from './utils/planets';
+import { Wheel } from './Sequences/Wheel';
 
 export const Layout: React.FC = () => {
     return (
@@ -28,10 +29,13 @@ export const Layout: React.FC = () => {
                     <ChooseTeam planetsInfo={planets} />
                 </Series.Sequence>
                 {planets.map((planet) => (
-                    <Series.Sequence durationInFrames={50}>
+                    <Series.Sequence durationInFrames={75}>
                         <PlanetDescription planetInfo={planet} />
                     </Series.Sequence>
                 ))}
+                <Series.Sequence durationInFrames={60}>
+                    <Wheel />
+                </Series.Sequence>
             </Series>
         </div>
     );
